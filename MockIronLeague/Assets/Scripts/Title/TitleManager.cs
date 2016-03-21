@@ -101,7 +101,9 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 		JsonObj jsonData = Json.Deserialize(result.text) as Dictionary<string, object>;
 		if (!jsonData ["is_today_login"]) {
 			// ログインボーナスWindow開く
-			LoginBonusWindow.Instance.ActivateLoginBonusWindow();
+			LoginBonusWindow.Instance.ActivateLoginBonusWindow ();
+		} else {
+			ActivateStartBtn ();
 		}
 	}
 }
