@@ -10,13 +10,14 @@ public class SupportPlayerController : ObservableMonoBehaviour {
 	public Transform[] spawnPositions;
 	// ネクストの場所
 	public Transform nextBlockSpawnPoint;
-
 	public bool[] readyBlocks;
 	private GameObject nextBlock;
 
 	public GameObject blockParent;
 	// UI上に置かれてる時のブロックのスケール
 	private Vector3 localBlockScale = new Vector3(0.05f,0.0278f,1f);
+
+	public GameObject preventBlockFilter;
 
 	void Awake()
 	{
@@ -65,6 +66,7 @@ public class SupportPlayerController : ObservableMonoBehaviour {
 			nextBlock.GetComponent<BlockParentBase> ().IsDrackable = true;
 			nextBlock.GetComponent<BlockParentBase> ().SpawnPosition = i;
 			nextBlock.transform.position = spawnPositions [i].position;
+			nextBlock.transform.tag = "block";
 			nextBlock = null;
 			readyBlocks[i] = true;
 			spawnBlock ();
@@ -83,8 +85,38 @@ public class SupportPlayerController : ObservableMonoBehaviour {
 			Quaternion.identity
 		);
 		block.name = blockType.name;
+		block.tag  = "Untagged";
 		block.transform.SetParent (blockParent.transform);
 		block.transform.localScale = localBlockScale;
 		nextBlock = block;
+	}
+
+
+	public void stopOperation()
+	{
+		// 全てのブロックを動けなくする
+		changeAllBlockStates (false);
+		preventBlockFilter.SetActive (true);
+		// 元に戻す作業をコルーチンで
+		StartCoroutine ("restartOperation");
+	}
+
+	// コルーチン
+	private IEnumerator restartOperation() {
+		yield return new WaitForSeconds (2.0f);
+		changeAllBlockStates (true);
+		preventBlockFilter.SetActive (false);
+	}
+
+
+	public void changeAllBlockStates(bool isDrackable_)
+	{
+		foreach (Transform child in transform)
+		{
+			//child is your child transform
+			if (child.CompareTag ("block")) {
+				child.gameObject.GetComponent<BlockParentBase> ().IsDrackable = isDrackable_;
+			}
+		}
 	}
 }

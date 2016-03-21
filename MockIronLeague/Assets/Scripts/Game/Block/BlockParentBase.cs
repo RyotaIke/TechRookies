@@ -66,9 +66,9 @@ IPointerUpHandler
 					Quaternion.identity,
 					0
 				);
-					
 				Destroy (gameObject);
 
+				GameObject.Find ("SupportPlayerController").GetComponent<SupportPlayerController> ().stopOperation ();
 			} else {
 				// ダメだったら
 				// 	positionとscaleを元に戻す
