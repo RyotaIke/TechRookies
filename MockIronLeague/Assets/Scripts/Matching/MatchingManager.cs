@@ -45,6 +45,7 @@ public class MatchingManager : MonoBehaviour {
 		Debug.Log ("setPlayerName : " + playerType + " : " + playerName);
 		playerNames [playerType].text = playerName;
 		PlayerInfo.Instance.playerNames [playerType] = playerName;
+		matchingWindow.SetActive (true);
 	}
 
 	public void startGameCoroutin()
