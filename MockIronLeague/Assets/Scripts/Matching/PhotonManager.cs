@@ -59,7 +59,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 		string roomName = "kasahara" + roomInfo.Length;
 		//ランダムにルームに入る
 		Debug.Log("roomName : " + roomName);
-		PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions(){isVisible = true, isOpen = true, maxPlayers = 2}, null);
+		PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions(){isVisible = true, isOpen = true, maxPlayers = 4}, null);
 	}
 
 	private IEnumerator GetRoomList(){
@@ -76,7 +76,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 	void OnPhotonRandomJoinFailed()
 	{
 		RoomOptions roomOptions = new RoomOptions ();
-		roomOptions.maxPlayers = 2;
+		roomOptions.maxPlayers = 4;
 		roomOptions.isVisible = true;
 		roomOptions.isOpen = true;
 		string roomName = "kasahara" + roomInfo.Length;
@@ -114,7 +114,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 //		}
 
 		// 4人揃ったらゲーム開始
-		if (PhotonNetwork.playerList.Length == 2) {
+		if (PhotonNetwork.playerList.Length == 4) {
 			matchingManager.startGameCoroutin ();
 		}
 	}
@@ -126,7 +126,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 	{
 		matchingManager.activatePlayer ("player" + PhotonNetwork.playerList.Length.ToString ());
 
-		if (PhotonNetwork.playerList.Length == 2) {
+		if (PhotonNetwork.playerList.Length == 4) {
 			matchingManager.startGameCoroutin ();
 		}
 	}
