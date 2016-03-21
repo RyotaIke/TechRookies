@@ -89,4 +89,26 @@ public class PlayerInfo : SingletonMonoBehaviour<PlayerInfo> {
 	/// The player names.
 	/// </summary>
 	public string[] playerNames = new string[4];
+
+	public bool hasGoalFalgPlayer_1;
+	public bool HasGoalFalgPlayer_1
+	{
+		get{ 
+			return hasGoalFalgPlayer_1;
+		}
+		set{ 
+			hasGoalFalgPlayer_1 = value;
+		}
+	}
+
+	public bool hasGoalFalgPlayer_2;
+	public bool HasGoalFalgPlayer_2
+	{
+		get{ 
+			return hasGoalFalgPlayer_2;
+		}
+		set{ 
+			hasGoalFalgPlayer_2 = value;
+		}
+	}
 }

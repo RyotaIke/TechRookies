@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UniRx; 
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonManager : Photon.MonoBehaviour {
 
@@ -11,7 +10,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 
 	private RoomInfo[] roomInfo = new RoomInfo[0];
 
-	private int maxNumberOfPerson = 4;
+	private int maxNumberOfPerson = 2;
 
 	void Start ()
 	{
@@ -72,6 +71,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 	void OnReceivedRoomListUpdate() {
 		// 既存のRoomを取得.
 		roomInfo = PhotonNetwork.GetRoomList();
+		Debug.Log ("roomInfo.Length" + roomInfo.Length);
 	}
 
 	//ランダムにルームに入れなかった
