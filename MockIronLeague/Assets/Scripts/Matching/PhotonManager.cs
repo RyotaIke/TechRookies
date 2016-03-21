@@ -60,7 +60,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 	void OnPhotonRandomJoinFailed()
 	{
 		//部屋を自分で作って入る
-		PhotonNetwork.CreateRoom(null);
+		PhotonNetwork.CreateRoom("ike");
 	}
 
 	/// <summary>
