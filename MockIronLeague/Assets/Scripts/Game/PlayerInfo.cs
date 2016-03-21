@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// photon接続周りをテストするために作ったダミークラス
+/// </summary>
 public class PlayerInfo : MonoBehaviour {
 
 	private int playerType;

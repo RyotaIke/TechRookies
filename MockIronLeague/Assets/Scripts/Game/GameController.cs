@@ -29,15 +29,15 @@ public class GameController : MonoBehaviour{
 
 	// Use this for initialization
 	void Start () {
-		if (playerInfo.GetComponent<PlayerInfo>().PlayerType == 1) {
-			// サポート側の機能をoffに
-			supportPlayerController.SetActive (false);
-			supportPlayerCanvas.SetActive (false);
-		} else {
-			// プレイヤー側の機能をoffに
-			playerCanvas = GameObject.Find("Canvas - Player");
-			playerCanvas.SetActive (false);
-		}
+//		if (playerInfo.GetComponent<PlayerInfo>().PlayerType == 1) {
+//			// サポート側の機能をoffに
+//			supportPlayerController.SetActive (false);
+//			supportPlayerCanvas.SetActive (false);
+//		} else {
+//			// プレイヤー側の機能をoffに
+//			playerCanvas = GameObject.Find("Canvas - Player");
+//			playerCanvas.SetActive (false);
+//		}
 	}
 
 	/// <summary>
