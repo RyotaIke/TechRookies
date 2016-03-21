@@ -39,7 +39,7 @@ public class ResultWindow : SingletonMonoBehaviour<ResultWindow> {
 		int player_1Tp = 0;
 		int player_2Tp = 0;
 
-		for (int i = 0; i < PlayerInfo.Instance.playerName.Length; i++) {
+		for (int i = 0; i < PlayerInfo.Instance.playerNames.Length; i++) {
 			playerNameTexts [i].text = PlayerInfo.Instance.playerNames[i];
 		}
 		int player_1LeftLife = PlayerInfo.Instance.Player1LeftLife;
