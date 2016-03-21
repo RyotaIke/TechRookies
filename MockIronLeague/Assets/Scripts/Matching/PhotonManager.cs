@@ -72,22 +72,22 @@ public class PhotonManager : Photon.MonoBehaviour {
 			matchingManager.activatePlayer ("player" + (i+1).ToString());
 		}
 		// ここでキャラクターの役割変えたい
-		switch (PhotonNetwork.playerList.Length) {
-		case 1:
-			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 1;
-			break;
-		case 2:
-			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 2;
-			break;
-		case 3:
-			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 1;
-			break;
-		case 4:
-			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 2;
-			break;
-		default:
-			break;
-		}
+//		switch (PhotonNetwork.playerList.Length) {
+//		case 1:
+//			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 1;
+//			break;
+//		case 2:
+//			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 2;
+//			break;
+//		case 3:
+//			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 1;
+//			break;
+//		case 4:
+//			GameObject.Find ("PlayerInfo").GetComponent<PlayerInfo> ().PlayerType = 2;
+//			break;
+//		default:
+//			break;
+//		}
 
 		// 4人揃ったらゲーム開始
 		if (PhotonNetwork.playerList.Length == 2) {
