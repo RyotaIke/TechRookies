@@ -18,7 +18,7 @@ public class PlayerInfo : SingletonMonoBehaviour<PlayerInfo> {
 	/// <summary>
 	/// プレイヤーの名前
 	/// </summary>
-	private string playerName;
+	public string playerName;
 	public string PlayerName
 	{
 		get {
@@ -32,7 +32,7 @@ public class PlayerInfo : SingletonMonoBehaviour<PlayerInfo> {
 	/// <summary>
 	/// プレイヤーの残機
 	/// </summary>
-	private int playerLeftLife;
+	public int playerLeftLife;
 	public int PlayerLeftLife
 	{
 		get{

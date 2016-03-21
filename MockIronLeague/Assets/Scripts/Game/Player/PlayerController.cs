@@ -18,11 +18,30 @@ public class PlayerController : Photon.MonoBehaviour
 	public float jumpPower = 500f;
 
 	public PlayerManager player;
+	[SerializeField]
+	private GameObject gameController;
+
+	[SerializeField]
+	private PlayerManager player1Manager;
+	[SerializeField]
+	private PlayerManager player2Manager;
 
 	void Start()
 	{
-		rightButton.OnPointerDownAsObservable ()
-			.Subscribe (_ => {
+		switch (PlayerInfo.Instance.playerType) {
+		case PlayerInfo.PlayerType.PLAYER_1:
+			player = player1Manager;
+			break;
+		case PlayerInfo.PlayerType.PLAYER_2:
+			break;
+		case PlayerInfo.PlayerType.PLAYER_3:
+			player = player2Manager;
+			break;
+		case PlayerInfo.PlayerType.PLAYER_4:
+			break;
+		}
+
+		rightButton.OnPointerDownAsObservable ().Subscribe (_ => {
 				player.rpcMove(1,speed);
 			});
 
@@ -31,8 +50,7 @@ public class PlayerController : Photon.MonoBehaviour
 				player.rpcMove(0,speed);
 			});
 
-		leftButton.OnPointerDownAsObservable ()
-			.Subscribe (_ => {
+		leftButton.OnPointerDownAsObservable ().Subscribe (_ => {
 				player.rpcMove(-1,speed);
 			});
 
@@ -43,7 +61,7 @@ public class PlayerController : Photon.MonoBehaviour
 
 		jumpButton.OnPointerDownAsObservable ()
 			.Subscribe (_ => {
-				player.Jump(jumpPower);
+				player.rpcJump(jumpPower);
 			});
 	}
 } 

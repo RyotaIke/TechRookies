@@ -3,7 +3,7 @@
 	public static class Scene {
 		public const string MAIN            = "Main";
 		public const string TITLE           = "Title";
-		public const string MATCHING        = "Mathcing";
+		public const string MATCHING        = "Matching";
 		public const string RESULT          = "Result";
 		public const string GAME            = "Game";
 		public const string CANVAS_MAIN     = "Canvas - Main";
