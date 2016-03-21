@@ -16,27 +16,12 @@ public class PlayingArea : MonoBehaviour {
 	{
 		gameObject.transform.position = getStartPosition ();
 
-		Debug.Log (gameObject.transform.position);
-
 		Observable.Timer (TimeSpan.FromSeconds (2)).Subscribe (_ => {
 			_isMovable = true;
 		});
 			
 	}
 		
-	public Vector3 getStartPosition()
-	{
-
-		Debug.Log (stage.transform.position.y);
-		Debug.Log (stage.transform.localScale.y / 2);
-		Debug.Log (gameObject.transform.localScale.y / 2);
-		return new Vector3 (
-			gameObject.transform.position.x,
-			stage.transform.position.y - (stage.transform.lossyScale.y / 2) + (gameObject.transform.lossyScale.y / 2),
-			gameObject.transform.position.z
-		);
-	}
-
 	void FixedUpdate ()
 	{
 		if (_isMovable) {
@@ -47,6 +32,23 @@ public class PlayingArea : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// ステージを基準にゲーム開始時ののカメラ位置をとってくる
+	/// </summary>
+	/// <returns>The start position.</returns>
+	public Vector3 getStartPosition()
+	{
+		return new Vector3 (
+			gameObject.transform.position.x,
+			stage.transform.position.y - (stage.transform.lossyScale.y / 2) + (gameObject.transform.lossyScale.y / 2),
+			gameObject.transform.position.z
+		);
+	}
+
+
+	/// <summary>
+	/// Ises the goal.
+	/// </summary>
 	private void _isGoal()
 	{
 		if ((stage.transform.lossyScale.y / 2) < (gameObject.transform.position.y + (gameObject.transform.lossyScale.y / 2))) {
