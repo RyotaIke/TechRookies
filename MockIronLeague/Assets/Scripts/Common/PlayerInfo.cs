@@ -46,14 +46,28 @@ public class PlayerInfo : SingletonMonoBehaviour<PlayerInfo> {
 	/// <summary>
 	/// プレイヤー
 	/// </summary>
-	private int playerGetCoin;
-	public int PlayerGetCoin 
+	public int player1GetCoin;
+	public int Player1GetCoin 
 	{
 		get {
-			return playerGetCoin;
+			return player1GetCoin;
 		}
 		set {
-			playerGetCoin = value;
+			player1GetCoin = value;
+		}
+	}
+
+	/// <summary>
+	/// プレイヤー
+	/// </summary>
+	public int player3GetCoin;
+	public int Player3GetCoin 
+	{
+		get {
+			return player3GetCoin;
+		}
+		set {
+			player3GetCoin = value;
 		}
 	}
 }

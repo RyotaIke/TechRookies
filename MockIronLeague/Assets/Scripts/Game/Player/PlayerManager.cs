@@ -10,13 +10,6 @@ public class PlayerManager : MonoBehaviour {
 
 	[SerializeField]
 	private GameController gameController;
-	[SerializeField]
-	private int life = 5;
-	public int Life
-	{
-		set { this.life = value; }
-		get { return this.life; }
-	}
 
 	// 地面に立っているかどうかを判定するためのレイヤー
 	public LayerMask whatIsGround;
@@ -56,7 +49,7 @@ public class PlayerManager : MonoBehaviour {
 		// プレイヤーが画面外下い配置されているDeathAreaにぶつかったら onDeath()を呼ぶ
 		this.OnTriggerEnter2DAsObservable ()
 			.Where (coll => LayerMask.LayerToName (coll.gameObject.layer) == "DeathArea")
-			.Subscribe (_ => onDeath ());
+			.Subscribe (_ => OnDamaged());
 
 		// ゴールに浮いたらOnGameFinishを呼ぶ
 		this.OnTriggerEnter2DAsObservable ()
@@ -72,6 +65,15 @@ public class PlayerManager : MonoBehaviour {
 			whatIsGround);
 
 		changeAnimation ();
+	}
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (LayerMask.LayerToName (coll.gameObject.layer) == "Player") {
+			// ポジションの差分をみて相手が頭上かどうかを判定
+			if ((coll.transform.localPosition.y - gameObject.transform.localPosition.y) >= gameObject.transform.localScale.y) {
+				OnDamaged ();
+			}
+		}
 	}
 
 	/// <summary>
@@ -164,10 +166,45 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// プレイヤーのが画面外に落ちて死んだ時に呼ばれる
+	/// コインを獲得した時に呼ばれる
 	/// </summary>
-	public void onDeath(){
-		Debug.Log("死にました");
-		life -= 1;
+	public void OnPlayer1GetCoin()
+	{
+		PlayerInfo.Instance.Player1GetCoin++;
+	}
+
+	/// <summary>
+	/// コインを獲得した時に呼ばれる
+	/// </summary>
+	public void OnPlayer3GetCoin()
+	{
+		PlayerInfo.Instance.Player3GetCoin++;
+	}
+
+	/// <summary>
+	/// プレイヤーがダメージをくらった時に呼び出される
+	/// ダメージをくらうのは、
+	/// ・画面外に落ちた時
+	/// ・相手のプレイヤーに踏まれた時
+	/// </summary>
+	public void OnDamaged(){
+		Debug.Log("ダメージを食らいました");
+		// ライフを1へらす
+		PlayerInfo.Instance.PlayerLeftLife--;
+
+		if (PlayerInfo.Instance.PlayerLeftLife == 0) {
+			OnDeath ();
+		}
+	}
+
+	/// <summary>
+	/// 残機数が０になったときに呼ばれる
+	/// </summary>
+	public void OnDeath()
+	{
+		Debug.Log("ライフが０になり死にました");
+
+		// 下記の感じの挙動になる？
+		// m_state = State.Death;
 	}
 }
