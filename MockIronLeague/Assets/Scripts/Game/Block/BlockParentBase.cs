@@ -65,9 +65,9 @@ IPointerUpHandler
 					gameObject.transform.position,
 					Quaternion.identity,
 					0
-				).transform.SetParent(gameObject.transform.parent.transform.parent.transform.parent,false);
+				);
 					
-				Destroy (this);
+				Destroy (gameObject);
 
 			} else {
 				// ダメだったら
