@@ -9,8 +9,7 @@ public class MatchingManager : MonoBehaviour {
 	void Awake() {
 		SceneManager.LoadScene (Const.Scene.CANVAS_MATCHING, LoadSceneMode.Additive);
 	}
-
-
+		
 	void Start ()
 	{
 		canvas = GameObject.Find("Canvas");
