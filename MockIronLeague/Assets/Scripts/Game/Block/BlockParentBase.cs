@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UniRx.Triggers;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -20,6 +22,8 @@ IPointerUpHandler
 	// ドラッグ可能かどうか
 	private bool isDrackable = false;
 	public bool IsDrackable { set { isDrackable = value; } }
+	// ブロックを置けるかどうか
+	private bool canSet = true;
 
 	private int spawnPosition;
 	public int SpawnPosition { set { spawnPosition = value; } }
@@ -27,6 +31,18 @@ IPointerUpHandler
 	// Use this for initialization
 	void Start () {
 		scale = (Camera.main.orthographicSize * 2) / (float)Screen.width * ((float)Screen.width / (float)Screen.height);
+
+		this.OnTriggerStay2DAsObservable ()
+			.Where (coll =>  coll.gameObject.CompareTag("block"))
+			.Subscribe (_ => {
+				canSet = false;
+			});
+
+		this.OnTriggerExit2DAsObservable()
+			.Where (coll =>  coll.gameObject.CompareTag("block"))
+			.Subscribe (_ => { 
+				canSet = true;
+			});
 	}
 		
 	public void OnPointerDown (PointerEventData eventData)
@@ -42,7 +58,7 @@ IPointerUpHandler
 		if (isDrackable) {
 			//  グリッドに合うように位置を調整する
 
-			if (true) {
+			if (canSet) {
 				// 離したエリアが大丈夫なエリアなら
 				foreach (Transform child in gameObject.transform)
 				{
@@ -55,7 +71,6 @@ IPointerUpHandler
 				// 	親をstageに変更する
 				gameObject.transform.SetParent (gameObject.transform.parent.transform.parent.transform.parent);
 
-
 				// 	ドラッグできないようにisDrackableをfalseにする
 				isDrackable = false;
 			} else {
@@ -63,6 +78,7 @@ IPointerUpHandler
 				// 	positionとscaleを元に戻す
 				gameObject.transform.localScale = beforeUIBlockScale;
 				gameObject.transform.localPosition = beforeDragPosition;
+				canSet = true;
 			}
 		}
 	}
