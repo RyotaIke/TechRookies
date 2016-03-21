@@ -30,16 +30,30 @@ public class PlayerInfo : SingletonMonoBehaviour<PlayerInfo> {
 	}
 
 	/// <summary>
-	/// プレイヤーの残機
+	/// プレイヤー1の残機
 	/// </summary>
-	public int playerLeftLife;
-	public int PlayerLeftLife
+	public int player1LeftLife;
+	public int Player1LeftLife
 	{
 		get{
-			return playerLeftLife;
+			return player1LeftLife;
 		}
 		set{
-			playerLeftLife = value;
+			player1LeftLife = value;
+		}
+	}
+
+	/// <summary>
+	/// プレイヤー1の残機
+	/// </summary>
+	public int player2LeftLife;
+	public int Player2LeftLife
+	{
+		get{
+			return player2LeftLife;
+		}
+		set{
+			player2LeftLife = value;
 		}
 	}
 

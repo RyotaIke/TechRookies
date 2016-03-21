@@ -78,7 +78,8 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 	{
 		userName.text = userData ["user"] ["name"].ToString ();
 		PlayerInfo.Instance.PlayerName = userData ["user"] ["name"].ToString ();
-		PlayerInfo.Instance.PlayerLeftLife = 3;
+		PlayerInfo.Instance.Player1LeftLife = 3;
+		PlayerInfo.Instance.Player2LeftLife = 3;
 	}
 
 	public void ActivateStartBtn()

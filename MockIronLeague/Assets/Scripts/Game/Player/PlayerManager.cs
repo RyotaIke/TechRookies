@@ -190,10 +190,17 @@ public class PlayerManager : MonoBehaviour {
 	public void OnDamaged(){
 		Debug.Log("ダメージを食らいました");
 		// ライフを1へらす
-		PlayerInfo.Instance.PlayerLeftLife--;
 
-		if (PlayerInfo.Instance.PlayerLeftLife == 0) {
-			OnDeath ();
+		if (gameObject.name == "Player_1") {
+			PlayerInfo.Instance.Player1LeftLife--;
+			if (PlayerInfo.Instance.Player1LeftLife == 0) {
+				OnDeath ();
+			}
+		} else if (gameObject.name == "Player_2") {
+			PlayerInfo.Instance.Player2LeftLife--;   
+			if (PlayerInfo.Instance.Player2LeftLife == 0) {
+				OnDeath ();
+			}
 		}
 	}
 

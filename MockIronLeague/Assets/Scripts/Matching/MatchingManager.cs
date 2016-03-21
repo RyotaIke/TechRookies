@@ -43,8 +43,8 @@ public class MatchingManager : MonoBehaviour {
 	public void _setPlayerName(int playerType, string playerName)
 	{
 		Debug.Log ("setPlayerName : " + playerType + " : " + playerName);
-		playerNames [playerType - 1].text = playerName;
-		PlayerInfo.Instance.playerNames [playerType - 1] = playerName;
+		playerNames [playerType].text = playerName;
+		PlayerInfo.Instance.playerNames [playerType] = playerName;
 	}
 
 	public void startGameCoroutin()
