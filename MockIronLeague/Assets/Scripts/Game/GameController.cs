@@ -23,6 +23,7 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 
 	// Use this for initialization
 	void Start () {
+		Invoke ("SetResult", 10f);
 		switch (PlayerInfo.Instance.playerType) {
 		case PlayerInfo.PlayerType.PLAYER_1:
 			supportPlayerController.SetActive (false);
@@ -39,6 +40,10 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 			playerCanvas.SetActive (false);
 			break;
 		}
+	}
+
+	private void SetResult(){
+		ResultWindow.Instance.SetResulWindow ();
 	}
 
 	/// <summary>
