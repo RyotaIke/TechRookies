@@ -26,11 +26,6 @@ public class RegisterWindow : SingletonMonoBehaviour<RegisterWindow> {
 	/// </summary>
 	[SerializeField]
 	private GameObject successWindow;
-	/// <summary>
-	/// 登録が失敗したときのポップアップ
-	/// </summary>
-	[SerializeField]
-	private GameObject failedWindow;
 
 	[SerializeField]
 	private Image bg;
@@ -66,10 +61,10 @@ public class RegisterWindow : SingletonMonoBehaviour<RegisterWindow> {
 		registerWindow.SetActive (false);
 	}
 
-	public void DeactivateWindows()
+	public void DeactivateSuccessWindows()
 	{
 		successWindow.SetActive (false);
-		failedWindow.SetActive (false);
+		LoginBonusWindow.Instance.ActivateLoginBonusWindow ();
 	}
 
 	/// <summary>
@@ -83,9 +78,8 @@ public class RegisterWindow : SingletonMonoBehaviour<RegisterWindow> {
 		wwwForm.AddField("keyword", "data");//不正接続防止用キーワード
 
 		// 登録する情報をパラメータとしてセットする
-		string arg = TitleManager.Instance.TerminalId + "/" + userName;
-		string url = ApiList.ApiList.BASEAPIURL + ApiList.ApiList.REGISTERUSER + "/" + arg;
-		Debug.Log("======================="+url+"=========================");
+		string arg = TitleManager.Instance.TerminalId + "/" + WWW.EscapeURL(userName);
+		string url = ApiList.ApiList.BASE_API_URL + ApiList.ApiList.REGISTER_USER + "/" + arg;
 		WWW result = new WWW(url , wwwForm);
 		// レスポンスを待つ
 		yield return result;
@@ -94,12 +88,11 @@ public class RegisterWindow : SingletonMonoBehaviour<RegisterWindow> {
 		JsonObj jsonData = Json.Deserialize(result.text) as Dictionary<string, object>;
 		if (jsonData ["is_success"]) {
 			successWindow.SetActive (true);
+			StartCoroutine (TitleManager.Instance.CheckRegisteredTerminalId ());
 			DeactivateResisterWindow ();
 		} else {
-			failedWindow.SetActive (false);
 			DeactivateResisterWindow ();
 		}
-		
 	}
 
 }
