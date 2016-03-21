@@ -11,6 +11,8 @@ public class PhotonManager : Photon.MonoBehaviour {
 
 	private RoomInfo[] roomInfo = new RoomInfo[0];
 
+	private int maxNumberOfPerson = 4;
+
 	void Start ()
 	{
 		//ロビーへの接続処理
@@ -92,9 +94,11 @@ public class PhotonManager : Photon.MonoBehaviour {
 	{
 		for (int i = 0; i < PhotonNetwork.playerList.Length; i++) {
 			PlayerInfo.Instance.playerType = (PlayerInfo.PlayerType)i;
-			matchingManager.activatePlayer (PlayerInfo.Instance.PlayerName);
 			Debug.Log (PlayerInfo.Instance.playerType);
 		}
+
+		matchingManager.setPlayerName (PlayerInfo.Instance.PlayerName);
+
 		// ここでキャラクターの役割変えたい
 //		switch (PhotonNetwork.playerList.Length) {
 //		case 1:
@@ -114,7 +118,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 //		}
 
 		// 4人揃ったらゲーム開始
-		if (PhotonNetwork.playerList.Length == 4) {
+		if (PhotonNetwork.playerList.Length == maxNumberOfPerson) {
 			matchingManager.startGameCoroutin ();
 		}
 	}
@@ -124,9 +128,9 @@ public class PhotonManager : Photon.MonoBehaviour {
 	/// </summary>
 	void OnPhotonPlayerConnected()
 	{
-		matchingManager.activatePlayer ("player" + PhotonNetwork.playerList.Length.ToString ());
+		matchingManager.setPlayerName(PlayerInfo.Instance.PlayerName);
 
-		if (PhotonNetwork.playerList.Length == 4) {
+		if (PhotonNetwork.playerList.Length == maxNumberOfPerson) {
 			matchingManager.startGameCoroutin ();
 		}
 	}

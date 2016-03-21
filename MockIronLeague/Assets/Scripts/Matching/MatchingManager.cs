@@ -11,24 +11,41 @@ public class MatchingManager : MonoBehaviour {
 	[SerializeField]
 	private Text[] playerNames;
 
+	[SerializeField]
+	PhotonView photonView;
+
 	private GameObject canvas;
 
 	void Awake() {
-		//SceneManager.LoadScene (Const.Scene.CANVAS_MATCHING, LoadSceneMode.Additive);
 	}
 		
 	void Start ()
 	{
-		//canvas = GameObject.Find("Canvas");
+
 	}
-
-
-	public void activatePlayer (string objectName)
+		
+	public void setPlayerName(string playerName)
 	{
-		Debug.Log ("===================================objectName : " + objectName + "=================");
-		playerNames [(int)PlayerInfo.Instance.playerType].text = objectName;
+		// 引数なし
+		object[] args = new object[]{
+			(int)PlayerInfo.Instance.playerType,
+			playerName
+		};
+
+		// RPCメソッドの名前、引数を合わせる
+		photonView.RPC(
+			"_setPlayerName",           // メソッド名
+			PhotonTargets.All,          // ネットワークプレイヤー全員に対して呼び出す
+			args);                      // 引数
 	}
 
+	[PunRPC]
+	public void _setPlayerName(int playerType, string playerName)
+	{
+		Debug.Log ("setPlayerName : " + playerType + " : " + playerName);
+		playerNames [playerType - 1].text = playerName;
+		PlayerInfo.Instance.playerNames [playerType - 1] = playerName;
+	}
 
 	public void startGameCoroutin()
 	{

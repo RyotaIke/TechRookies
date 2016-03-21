@@ -70,4 +70,9 @@ public class PlayerInfo : SingletonMonoBehaviour<PlayerInfo> {
 			player3GetCoin = value;
 		}
 	}
+
+	/// <summary>
+	/// The player names.
+	/// </summary>
+	public string[] playerNames = new string[4];
 }
