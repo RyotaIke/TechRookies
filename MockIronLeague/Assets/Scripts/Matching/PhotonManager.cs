@@ -70,6 +70,8 @@ public class PhotonManager : Photon.MonoBehaviour {
 	{
 		for (int i = 0; i < PhotonNetwork.playerList.Length; i++) {
 			matchingManager.activatePlayer ("player" + (i+1).ToString());
+			PlayerInfo.Instance.playerType = (PlayerInfo.PlayerType)i;
+			Debug.Log (PlayerInfo.Instance.playerType);
 		}
 		// ここでキャラクターの役割変えたい
 //		switch (PhotonNetwork.playerList.Length) {

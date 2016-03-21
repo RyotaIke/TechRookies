@@ -26,6 +26,9 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 	/// </summary>
 	private JsonObj userData;
 
+	[SerializeField]
+	private GameObject playerInfo;
+
 	void Awake() {
 		//SceneManager.LoadScene (Const.Scene.CANVAS_TITLE, LoadSceneMode.Additive);
 		terminalId = SystemInfo.deviceUniqueIdentifier;
@@ -35,10 +38,11 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 	void Start () {
 
 		StartCoroutine (CheckRegisteredTerminalId());
+		DontDestroyOnLoad (Instantiate (playerInfo).gameObject);
 
 		// Mainへの遷移 
 		startBtn.OnClickAsObservable ().Subscribe (_ => {
-			SceneManager.LoadScene (Const.Scene.GAME, LoadSceneMode.Single);
+			SceneManager.LoadScene (Const.Scene.MATCHING, LoadSceneMode.Single);
 		});
 	}
 
@@ -74,7 +78,8 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 	private void SetUserName()
 	{
 		userName.text = userData ["user"] ["name"].ToString ();
-
+		PlayerInfo.Instance.PlayerName = userData ["user"] ["name"].ToString ();
+		PlayerInfo.Instance.PlayerLeftLife = 3;
 	}
 
 	public void ActivateStartBtn()
