@@ -11,7 +11,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 
 	private RoomInfo[] roomInfo = new RoomInfo[0];
 
-	private int maxNumberOfPerson = 2;
+	private int maxNumberOfPerson = 4;
 
 	void Start ()
 	{
