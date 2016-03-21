@@ -56,23 +56,19 @@ IPointerUpHandler
 	public void OnPointerUp (PointerEventData eventData)
 	{
 		if (isDrackable) {
-			//  グリッドに合うように位置を調整する
-
 			if (canSet) {
 				// 離したエリアが大丈夫なエリアなら
-				foreach (Transform child in gameObject.transform)
-				{
-					// UIの後ろに表示されるようにlayerをいじる
-					//  当たり判定をonにする
-					child.GetComponent<SpriteRenderer> ().sortingLayerName = "Default";
-					child.GetComponent<BoxCollider2D> ().isTrigger = false;
-				}
 				gameObject.transform.parent.GetComponent<SupportPlayerController> ().readyBlocks [spawnPosition] = false;
-				// 	親をstageに変更する
-				gameObject.transform.SetParent (gameObject.transform.parent.transform.parent.transform.parent);
 
-				// 	ドラッグできないようにisDrackableをfalseにする
-				isDrackable = false;
+				PhotonNetwork.Instantiate (
+					"Prefabs/Photon" + this.name,
+					gameObject.transform.position,
+					Quaternion.identity,
+					0
+				).transform.SetParent(gameObject.transform.parent.transform.parent.transform.parent,false);
+					
+				Destroy (this);
+
 			} else {
 				// ダメだったら
 				// 	positionとscaleを元に戻す

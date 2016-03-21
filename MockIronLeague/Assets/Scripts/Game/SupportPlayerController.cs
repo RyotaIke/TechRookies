@@ -76,11 +76,13 @@ public class SupportPlayerController : ObservableMonoBehaviour {
 	/// </summary>
 	public void spawnBlock()
 	{
+		GameObject blockType = blocks [Random.Range (0, blocks.Length)];
 		GameObject block = (GameObject)Instantiate (
-			blocks[Random.Range (0, blocks.Length)],
+			blockType,
 			nextBlockSpawnPoint.position,
 			Quaternion.identity
 		);
+		block.name = blockType.name;
 		block.transform.SetParent (blockParent.transform);
 		block.transform.localScale = localBlockScale;
 		nextBlock = block;
