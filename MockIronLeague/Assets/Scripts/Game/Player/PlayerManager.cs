@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour {
 	// 地面に立っているかどうかを判定するためのレイヤー
 	public LayerMask whatIsGround;
 	// 地面に立っているかどうか
-	private bool isGround = true;
+	private bool isGround = false;
 
 	// キャラ自体に付いているコンポーネント群 
 	public Animator      m_animator;
@@ -66,7 +66,11 @@ public class PlayerManager : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		Debug.Log ("状態チェック : " + m_rigidbody2D.velocity);
+		isGround = Physics2D.Linecast (
+			transform.position + transform.up * 1,
+			transform.position - transform.up * 0.05f,
+			whatIsGround);
+
 		changeAnimation ();
 	}
 
@@ -121,7 +125,6 @@ public class PlayerManager : MonoBehaviour {
 	[PunRPC]
 	public void Jump(float jumpPower)
 	{
-		Debug.Log ("heihei " + isGround);
 		// 死んでない かつ 地面に接してる時のみジャンプ可能
 		if (m_state != State.Death && isGround) {
 			Debug.Log ("hei");
