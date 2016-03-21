@@ -127,7 +127,6 @@ public class PlayerManager : MonoBehaviour {
 	{
 		// 死んでない かつ 地面に接してる時のみジャンプ可能
 		if (m_state != State.Death && isGround) {
-			Debug.Log ("hei");
 			m_rigidbody2D.AddForce(Vector2.up * jumpPower);
 		}
 	}
