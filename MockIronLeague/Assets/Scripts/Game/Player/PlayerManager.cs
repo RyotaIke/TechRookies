@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour {
 		// ゴールに浮いたらOnGameFinishを呼ぶ
 		this.OnTriggerEnter2DAsObservable ()
 			.Where (coll => LayerMask.LayerToName (coll.gameObject.layer) == "Goal")
-			.Subscribe (_ => gameController.OnGameFinish());
+			.Subscribe (_ => gameController.OnGameFinish(gameObject.name));
 	}
 
 	void FixedUpdate()

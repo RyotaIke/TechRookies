@@ -23,7 +23,6 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 
 	// Use this for initialization
 	void Start () {
-		Invoke ("SetResult", 10f);
 		switch (PlayerInfo.Instance.playerType) {
 		case PlayerInfo.PlayerType.PLAYER_1:
 			supportPlayerController.SetActive (false);
@@ -49,8 +48,30 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 	/// <summary>
 	/// ゲームが終了した時に呼ばれる
 	/// </summary>
-	public void OnGameFinish()
+	public void OnGameFinish(string playerName)
 	{
-		Debug.Log ("ゲーム終了");
+		// ここでどっちが旗をとったのかを同期させる
+		// 引数なし
+		object[] args = new object[]{
+			playerName == "Player_1",
+			playerName == "Player_2"
+		};
+
+		// RPCメソッドの名前、引数を合わせる
+		gameObject.GetComponent<PhotonView>().RPC(
+			"syncResult",                  // メソッド名
+			PhotonTargets.All,          // ネットワークプレイヤー全員に対して呼び出す
+			args);                      // 引数
+
+
+		// 結果表示
+		SetResult ();
+	}
+
+	[PunRPC]
+	public void syncResult(bool isPlayer1Goal, bool isPlayer2Goal)
+	{
+		PlayerInfo.Instance.HasGoalFalgPlayer_1 = isPlayer1Goal;
+		PlayerInfo.Instance.HasGoalFalgPlayer_2 = isPlayer2Goal;
 	}
 }
