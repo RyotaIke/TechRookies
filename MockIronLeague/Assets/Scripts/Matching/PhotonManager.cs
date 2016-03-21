@@ -3,10 +3,13 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UniRx; 
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonManager : Photon.MonoBehaviour {
 
 	public MatchingManager matchingManager;
+
+	private RoomInfo[] roomInfo = new RoomInfo[0];
 
 	void Start ()
 	{
@@ -28,6 +31,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 
 		//接続開始
 		PhotonNetwork.ConnectUsingSettings("0.1");
+		StartCoroutine (GetRoomList ());
 
 		//結果保存用のオブジェクト
 		var result = default(object);
@@ -45,22 +49,40 @@ public class PhotonManager : Photon.MonoBehaviour {
 			//
 			yield break;
 		}
-
+		Debug.Log ("roomInfo.Length : " + roomInfo.Length);
 		Debug.Log("接続成功");
 	}
 
 	//PhotonNetwork.ConnectUsingSettingsを行うと呼ばれる
 	void OnJoinedLobby()
 	{
+		string roomName = "kasahara" + roomInfo.Length;
 		//ランダムにルームに入る
-		PhotonNetwork.JoinRandomRoom();
+		Debug.Log("roomName : " + roomName);
+		PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions(){isVisible = true, isOpen = true, maxPlayers = 4}, null);
+	}
+
+	private IEnumerator GetRoomList(){
+		OnReceivedRoomListUpdate ();
+		yield return null;
+	}
+
+	void OnReceivedRoomListUpdate() {
+		// 既存のRoomを取得.
+		roomInfo = PhotonNetwork.GetRoomList();
 	}
 
 	//ランダムにルームに入れなかった
 	void OnPhotonRandomJoinFailed()
 	{
+		RoomOptions roomOptions = new RoomOptions ();
+		roomOptions.maxPlayers = 4;
+		roomOptions.isVisible = true;
+		roomOptions.isOpen = true;
+		string roomName = "kasahara" + roomInfo.Length;
+		Debug.Log("OnPhotonRandomJoinFailed");
 		//部屋を自分で作って入る
-		PhotonNetwork.CreateRoom("ike");
+		PhotonNetwork.CreateRoom(roomName, roomOptions, null);
 	}
 
 	/// <summary>
@@ -92,7 +114,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 //		}
 
 		// 4人揃ったらゲーム開始
-		if (PhotonNetwork.playerList.Length == 2) {
+		if (PhotonNetwork.playerList.Length == 4) {
 			matchingManager.startGameCoroutin ();
 		}
 	}
@@ -104,7 +126,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 	{
 		matchingManager.activatePlayer ("player" + PhotonNetwork.playerList.Length.ToString ());
 
-		if (PhotonNetwork.playerList.Length == 2) {
+		if (PhotonNetwork.playerList.Length == 4) {
 			matchingManager.startGameCoroutin ();
 		}
 	}

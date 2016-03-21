@@ -59,7 +59,6 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 		// get_debug_index
 		string url = ApiList.ApiList.BASE_API_URL + ApiList.ApiList.CHECK_REGISTER + "/" + TerminalId;
 		WWW result = new WWW(url, wwwForm);
-		Debug.Log (url);
 		// レスポンスを待つ
 		yield return result;
 
@@ -99,7 +98,6 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 		// get_debug_index
 		string url = ApiList.ApiList.BASE_API_URL + ApiList.ApiList.CHECK_GOT_LOGIN_BONUS + "/" + TerminalId;
 		WWW result = new WWW(url, wwwForm);
-		Debug.Log (url);
 		// レスポンスを待つ
 		yield return result;
 
