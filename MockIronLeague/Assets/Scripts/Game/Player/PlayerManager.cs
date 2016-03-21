@@ -2,6 +2,7 @@
 using UniRx.Triggers;
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 /// <summary>
 /// プレイヤーの情報を管理するクラス
@@ -190,18 +191,41 @@ public class PlayerManager : MonoBehaviour {
 	public void OnDamaged(){
 		Debug.Log("ダメージを食らいました");
 		// ライフを1へらす
-
-		if (gameObject.name == "Player_1") {
+		if (gameObject.name == "Player_1" && m_state.Equals(State.Normal)) {
+			m_state = State.Invincible;
+			OnDamagerPlayerAnim(gameObject);
 			PlayerInfo.Instance.Player1LeftLife--;
 			if (PlayerInfo.Instance.Player1LeftLife == 0) {
 				OnDeath ();
 			}
-		} else if (gameObject.name == "Player_2") {
+		} else if (gameObject.name == "Player_2" && m_state.Equals(State.Normal)) {
+			m_state = State.Invincible;
+			OnDamagerPlayerAnim(gameObject);
 			PlayerInfo.Instance.Player2LeftLife--;   
 			if (PlayerInfo.Instance.Player2LeftLife == 0) {
 				OnDeath ();
 			}
 		}
+	}
+
+	private void OnDamagerPlayerAnim(GameObject targetObject)
+	{
+		Sequence sequence = DOTween.Sequence ();
+		sequence.Append (
+			targetObject.transform.DOLocalMoveY (0, 0.3f)
+		);
+		sequence.Append (
+			targetObject.transform.DOLocalMoveY(-0.6f, 0.3f)
+		);
+		sequence.AppendInterval (0.5f);
+		sequence.OnComplete (() => SetPlayerPosition (targetObject));
+	}
+
+	private void SetPlayerPosition(GameObject targetObject)
+	{
+		Debug.Log ("targetObject.transform.localPosition : " + targetObject.transform.localPosition);
+		targetObject.transform.localPosition = new Vector3 (targetObject.transform.localPosition.x, 0.4f, targetObject.transform.localPosition.z);
+		m_state = State.Normal;
 	}
 
 	/// <summary>

@@ -23,7 +23,7 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 
 	// Use this for initialization
 	void Start () {
-		Invoke ("SetResult", 10f);
+//		Invoke ("SetResult", 10f);
 		switch (PlayerInfo.Instance.playerType) {
 		case PlayerInfo.PlayerType.PLAYER_1:
 			supportPlayerController.SetActive (false);
