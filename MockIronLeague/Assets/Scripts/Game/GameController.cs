@@ -29,7 +29,6 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 			supportPlayerCanvas.SetActive (false);
 			break;
 		case PlayerInfo.PlayerType.PLAYER_2:
-			playerCanvas = GameObject.Find("Canvas - Player");
 			playerCanvas.SetActive (false);
 			break;
 		case PlayerInfo.PlayerType.PLAYER_3:
@@ -37,7 +36,6 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 			supportPlayerCanvas.SetActive (false);
 			break;
 		case PlayerInfo.PlayerType.PLAYER_4:
-			playerCanvas = GameObject.Find("Canvas - Player");
 			playerCanvas.SetActive (false);
 			break;
 		}
