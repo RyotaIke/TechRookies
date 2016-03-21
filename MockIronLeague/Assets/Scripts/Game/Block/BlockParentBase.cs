@@ -33,13 +33,13 @@ IPointerUpHandler
 		scale = (Camera.main.orthographicSize * 2) / (float)Screen.width * ((float)Screen.width / (float)Screen.height);
 
 		this.OnTriggerStay2DAsObservable ()
-			.Where (coll =>  coll.gameObject.CompareTag("block"))
+			.Where (coll =>  coll.gameObject.CompareTag("block") || coll.gameObject.CompareTag("Coin") || coll.gameObject.CompareTag("Player"))
 			.Subscribe (_ => {
 				canSet = false;
 			});
 
 		this.OnTriggerExit2DAsObservable()
-			.Where (coll =>  coll.gameObject.CompareTag("block"))
+			.Where (coll =>  coll.gameObject.CompareTag("block") || coll.gameObject.CompareTag("Coin") || coll.gameObject.CompareTag("Player"))
 			.Subscribe (_ => { 
 				canSet = true;
 			});

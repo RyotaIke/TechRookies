@@ -166,6 +166,22 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// コインを獲得した時に呼ばれる
+	/// </summary>
+	public void OnPlayer1GetCoin()
+	{
+		PlayerInfo.Instance.Player1GetCoin++;
+	}
+
+	/// <summary>
+	/// コインを獲得した時に呼ばれる
+	/// </summary>
+	public void OnPlayer3GetCoin()
+	{
+		PlayerInfo.Instance.Player3GetCoin++;
+	}
+
+	/// <summary>
 	/// プレイヤーがダメージをくらった時に呼び出される
 	/// ダメージをくらうのは、
 	/// ・画面外に落ちた時
