@@ -68,16 +68,16 @@ public class PlayerManager : MonoBehaviour {
 		changeAnimation ();
 	}
 
-	void OnCollisionEnter2D(Collision2D coll) {
-		if (LayerMask.LayerToName (coll.gameObject.layer) == "Player") {
-			// ポジションの差分をみて相手が頭上かどうかを判定
-			if ((coll.transform.localPosition.y - gameObject.transform.localPosition.y) >= gameObject.transform.localScale.y) {
-				if (coll.gameObject.GetComponent<PlayerManager> ().m_state == m_state) {
-					OnDamaged ();
-				}
-			}
-		}
-	}
+//	void OnCollisionEnter2D(Collision2D coll) {
+//		if (LayerMask.LayerToName (coll.gameObject.layer) == "Player") {
+//			// ポジションの差分をみて相手が頭上かどうかを判定
+//			if ((coll.transform.localPosition.y - gameObject.transform.localPosition.y) >= gameObject.transform.localScale.y) {
+//				if (coll.gameObject.GetComponent<PlayerManager> ().m_state == m_state) {
+//					OnDamaged ();
+//				}
+//			}
+//		}
+//	}
 
 	/// <summary>
 	/// キャラクタのアニメーションを制御する
@@ -214,10 +214,10 @@ public class PlayerManager : MonoBehaviour {
 	{
 		Sequence sequence = DOTween.Sequence ();
 		sequence.Append (
-			targetObject.transform.DOLocalMoveY (0, 0.3f)
+			targetObject.transform.DOLocalMoveY (0, 0.5f)
 		);
 		sequence.Append (
-			targetObject.transform.DOLocalMoveY(-0.6f, 0.3f)
+			targetObject.transform.DOLocalMoveY(-0.6f, 0.6f)
 		);
 		sequence.AppendInterval (0.5f);
 		sequence.OnComplete (() => SetPlayerPosition (targetObject));
@@ -225,7 +225,6 @@ public class PlayerManager : MonoBehaviour {
 
 	private void SetPlayerPosition(GameObject targetObject)
 	{
-		Debug.Log ("targetObject.transform.localPosition : " + targetObject.transform.localPosition);
 		targetObject.transform.localPosition = new Vector3 (targetObject.transform.localPosition.x, 0.4f, targetObject.transform.localPosition.z);
 		m_state = State.Normal;
 	}

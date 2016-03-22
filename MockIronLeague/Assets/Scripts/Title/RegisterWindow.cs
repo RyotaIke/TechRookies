@@ -26,9 +26,20 @@ public class RegisterWindow : SingletonMonoBehaviour<RegisterWindow> {
 	/// </summary>
 	[SerializeField]
 	private GameObject successWindow;
-
+	[SerializeField]
+	private Button registerBtn; 
 	[SerializeField]
 	private Image bg;
+
+
+	public void ValueChangeCheck()
+	{
+		if (nameField.text != "") {
+			registerBtn.interactable = true;
+		} else {
+			registerBtn.interactable = false;
+		}
+	}
 
 	/// <summary>
 	/// 登録ボタンを押下したときの処理
