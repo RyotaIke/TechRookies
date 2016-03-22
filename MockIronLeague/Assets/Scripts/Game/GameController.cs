@@ -49,8 +49,8 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 		// ここでどっちが旗をとったのかを同期させる
 		// 引数なし
 		object[] args = new object[]{
-			playerName == "Player_1",
-			playerName == "Player_2"
+			playerName == "MainPlayer_1",
+			playerName == "MainPlayer_2"
 		};
 
 		// RPCメソッドの名前、引数を合わせる

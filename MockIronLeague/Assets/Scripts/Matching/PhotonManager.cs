@@ -50,14 +50,13 @@ public class PhotonManager : Photon.MonoBehaviour {
 			//
 			yield break;
 		}
-		Debug.Log ("roomInfo.Length : " + roomInfo.Length);
 		Debug.Log("接続成功");
 	}
 
 	//PhotonNetwork.ConnectUsingSettingsを行うと呼ばれる
 	void OnJoinedLobby()
 	{
-		string roomName = "kasahara" + roomInfo.Length;
+		string roomName = "wagashi" + roomInfo.Length;
 		//ランダムにルームに入る
 		Debug.Log("roomName : " + roomName);
 		PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions(){isVisible = true, isOpen = true, maxPlayers = 4}, null);
@@ -71,7 +70,6 @@ public class PhotonManager : Photon.MonoBehaviour {
 	void OnReceivedRoomListUpdate() {
 		// 既存のRoomを取得.
 		roomInfo = PhotonNetwork.GetRoomList();
-		Debug.Log ("roomInfo.Length" + roomInfo.Length);
 	}
 
 	//ランダムにルームに入れなかった
@@ -81,8 +79,7 @@ public class PhotonManager : Photon.MonoBehaviour {
 		roomOptions.maxPlayers = 4;
 		roomOptions.isVisible = true;
 		roomOptions.isOpen = true;
-		string roomName = "kasahara" + roomInfo.Length;
-		Debug.Log("OnPhotonRandomJoinFailed");
+		string roomName = "wagashi" + roomInfo.Length;
 		//部屋を自分で作って入る
 		PhotonNetwork.CreateRoom(roomName, roomOptions, null);
 	}

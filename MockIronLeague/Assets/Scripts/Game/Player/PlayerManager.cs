@@ -207,14 +207,14 @@ public class PlayerManager : MonoBehaviour {
 	public void OnDamaged(){
 		Debug.Log("ダメージを食らいました");
 		// ライフを1へらす
-		if (gameObject.name == "Player_1" && m_state.Equals(State.Normal)) {
+		if (gameObject.name == "MainPlayer_1" && m_state.Equals(State.Normal)) {
 			m_state = State.Invincible;
 			OnDamagerPlayerAnim(gameObject);
 			PlayerInfo.Instance.Player1LeftLife--;
 			if (PlayerInfo.Instance.Player1LeftLife == 0) {
 				OnDeath ();
 			}
-		} else if (gameObject.name == "Player_2" && m_state.Equals(State.Normal)) {
+		} else if (gameObject.name == "MainPlayer_2" && m_state.Equals(State.Normal)) {
 			m_state = State.Invincible;
 			OnDamagerPlayerAnim(gameObject);
 			PlayerInfo.Instance.Player2LeftLife--;   
