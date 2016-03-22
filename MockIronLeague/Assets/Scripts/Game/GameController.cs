@@ -16,10 +16,6 @@ public class GameController : SingletonMonoBehaviour<GameController>{
 	[SerializeField]
 	private GameObject playerCanvas;
 
-	void Awake()
-	{
-		
-	}
 
 	// Use this for initialization
 	void Start () {
