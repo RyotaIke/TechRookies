@@ -28,6 +28,8 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 
 	[SerializeField]
 	private GameObject playerInfo;
+	[SerializeField]
+	private GameObject bgmManager;
 
 	void Awake() {
 		//SceneManager.LoadScene (Const.Scene.CANVAS_TITLE, LoadSceneMode.Additive);
@@ -36,9 +38,14 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager> {
 
 	// Use this for initialization
 	void Start () {
-
-		StartCoroutine (CheckRegisteredTerminalId());
+		StartCoroutine (CheckRegisteredTerminalId ());
+		GameObject obj = GameObject.Find ("BgmManager(Clone)");
+		if (obj == null) {
+			DontDestroyOnLoad (Instantiate (bgmManager).gameObject);	
+		}
 		DontDestroyOnLoad (Instantiate (playerInfo).gameObject);
+		BgmManager.Instance.bgmStatus = BgmManager.BgmStatus.TITLE;
+		BgmManager.Instance.ChangeBgm ();
 
 		// Mainへの遷移 
 		startBtn.OnClickAsObservable ().Subscribe (_ => {
