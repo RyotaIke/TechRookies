@@ -56,5 +56,7 @@ public class MatchingManager : MonoBehaviour {
 	private IEnumerator startGame() {
 		yield return new WaitForSeconds (3.0f);
 		SceneManager.LoadScene (Const.Scene.GAME, LoadSceneMode.Single);
+		BgmManager.Instance.bgmStatus = BgmManager.BgmStatus.GAME;
+		BgmManager.Instance.ChangeBgm ();
 	}
 }
