@@ -28,8 +28,8 @@ public class PlayerManager : MonoBehaviour {
 	public PhotonView photonView;
 
 	// キャラクターの状態遷移用
-	private State m_state = State.Normal;
-	enum State
+	public State m_state = State.Normal;
+	public enum State
 	{
 		Normal,		//その他
 		Death,		//死
@@ -72,7 +72,9 @@ public class PlayerManager : MonoBehaviour {
 		if (LayerMask.LayerToName (coll.gameObject.layer) == "Player") {
 			// ポジションの差分をみて相手が頭上かどうかを判定
 			if ((coll.transform.localPosition.y - gameObject.transform.localPosition.y) >= gameObject.transform.localScale.y) {
-				OnDamaged ();
+				if (coll.gameObject.GetComponent<PlayerManager> ().m_state == m_state) {
+					OnDamaged ();
+				}
 			}
 		}
 	}
