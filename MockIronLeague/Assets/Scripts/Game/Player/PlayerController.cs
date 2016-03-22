@@ -47,6 +47,7 @@ public class PlayerController : Photon.MonoBehaviour
 
 		rightButton.OnPointerUpAsObservable ()
 			.Subscribe (_ => {
+				player.stopWalk();
 				player.rpcMove(0,speed);
 			});
 
@@ -56,6 +57,7 @@ public class PlayerController : Photon.MonoBehaviour
 
 		leftButton.OnPointerUpAsObservable ()
 			.Subscribe (_ => {
+				player.stopWalk();
 				player.rpcMove(0,speed);
 			});
 
