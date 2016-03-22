@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour {
 	// Photonで挙動を同期させる用
 	public PhotonView photonView;
 
+
 	// キャラクターの状態遷移用
 	public State m_state = State.Normal;
 	public enum State
@@ -64,8 +65,6 @@ public class PlayerManager : MonoBehaviour {
 			transform.position + transform.up * 1,
 			transform.position - transform.up * 0.05f,
 			whatIsGround);
-
-		changeAnimation ();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -77,6 +76,12 @@ public class PlayerManager : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public void stopWalk()
+	{
+		m_animator.SetBool ("Walk" , false);
+
 	}
 
 	/// <summary>
@@ -134,6 +139,9 @@ public class PlayerManager : MonoBehaviour {
 		if (m_state != State.Death && isGround) {
 			m_rigidbody2D.AddForce(Vector2.up * jumpPower);
 		}
+
+		m_animator.SetTrigger("jump");
+		//m_animator.SetBool ("Jump" , true);
 	}
 
 	/// <summary>
@@ -156,15 +164,21 @@ public class PlayerManager : MonoBehaviour {
 
 	[PunRPC]
 	public void Move(float move, float speed)
-	{
+	{		
 		// 死んでない時のみジャンプ可能
 		if (m_state != State.Death) {
 			if (Mathf.Abs (move) > 0) {
 				Quaternion rot = transform.rotation;
-				transform.rotation = Quaternion.Euler (rot.x, Mathf.Sign (move) == 1 ? 0 : 180, rot.z);
+				transform.rotation = Quaternion.Euler (rot.x, Mathf.Sign (move) == 1 ? 180 : 0, rot.z);
 			}
 
 			m_rigidbody2D.velocity = new Vector2(move * speed, m_rigidbody2D.velocity.y);
+
+			if (move != 0) {
+				m_animator.SetBool ("Walk" , true);
+			} else {
+				m_animator.SetBool ("Walk" , false);
+			}
 		}
 	}
 
